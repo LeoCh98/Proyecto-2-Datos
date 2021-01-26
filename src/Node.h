@@ -5,18 +5,17 @@
 #ifndef PROYECTO_2_DATOS_NODE_H
 #define PROYECTO_2_DATOS_NODE_H
 #include "NodeData.h"
-#include <vector>
 #include<iomanip>
 #include<iostream>
 using namespace std;
 
 class Node {
 private:
-    int ORDER = 4;
+    static const int ORDER = 4;
     int numItems;
     Node* parent;
-    vector<Node*> childArray;
-    vector<NodeData*> itemArray;
+    Node* childArray[ORDER];
+    NodeData* itemArray[ORDER-1];
 public:
     Node();
     void connectChild(int childNum, Node* child); // connect child to this node
@@ -40,12 +39,7 @@ public:
 };
 
 Node::Node(){
-    for(int i=0; i < ORDER ; i++){
-        childArray[i]=NULL;
-    }
-    for(int i=0; i < ORDER-1 ; i++){
-        itemArray[i]=NULL;
-    }
+
 }
 
 void Node::connectChild(int childNum, Node* child) {

@@ -28,7 +28,7 @@ void Menu::menu() {
             cout << "1. Insert n random Integers\n"
                  << "2. Perform 2n operations with probability\n3. Print In Order"
                  << "\n4. View Tree level by level\n5. Insert an element\n6. Delete an element"
-                 << "\n7. find an element\n8. Quit"
+                 << "\n7. find an element\n8. Quit\n"
                  << "\t Option: ";
             cin >> choice;
             switch (atoi(choice.c_str())) {
