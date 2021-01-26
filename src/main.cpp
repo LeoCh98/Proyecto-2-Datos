@@ -4,7 +4,8 @@
 #include <iostream>
 #include "Menu.h"
 
-int main(){
+int main() {
+
     std::cout<<"Hello world!"<<std::endl;
     Menu _menu;
     _menu.menu();

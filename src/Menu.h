@@ -5,169 +5,169 @@
 #ifndef PROYECTO_2_DATOS_MENU_H
 #define PROYECTO_2_DATOS_MENU_H
 #include "TwoFour.h"
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
 class Menu{
 public:
     void menu();
+    double Random();
 };
 
+double Menu::Random() {
+        double f = (double)rand() / RAND_MAX;
+        return 0,0 + f * (0,1 - 0,0);
+}
+
 void Menu::menu() {
-    TwoFour* theTree = new TwoFour();
+    string choice;
+    TwoFour *theTree = new TwoFour();
     int n;
-    Random random = new Random();
     while (true) {
         try {
-            cout<<"1. Insert n random Integers\n"
-                << "2. Perform 2n operations with probability\n3. Print In Order"
-                << "\n4. View Tree level by level\n5. Insert an element\n6. Delete an element"
-                << "\n7. find an element\n8. Quit";
-            char choice = getChar();
-            switch (choice) {
-                case '1':
-                    cout<<"Enter the value of n";
-                    n = getInt();
-                    for (int a = 1; a < n+1; a++) {
-                        Node present = theTree.find(a);
-                        if (present != null){
-                            //System.out.println("Data Already present!!");
-                        }else{
-                            theTree.insert(a);
+            cout << "1. Insert n random Integers\n"
+                 << "2. Perform 2n operations with probability\n3. Print In Order"
+                 << "\n4. View Tree level by level\n5. Insert an element\n6. Delete an element"
+                 << "\n7. find an element\n8. Quit"
+                 << "\t Option: ";
+            cin >> choice;
+            switch (atoi(choice.c_str())) {
+                case 1: {
+                    cout << "\nEnter the value of n";
+                    cin >> n;
+                    for (int a = 1; a < n + 1; a++) {
+                        Node *present = theTree->find(a);
+                        if (present != NULL) {
+                            cout << "Data Already present!!\n";
+                        } else {
+                            theTree->insert(a);
                         }
                     }
                     break;
-                case '2':
-                    cout<<"Enter the value of n";
-                    n = getInt();
+                }
+                case 2: {
+                    cout << "\nEnter the value of n";
+                    cin >> n;
                     long startTime, endTime;
                     int operation = 0;
                     int searchCount = 0;
                     int insertCount = 0;
                     int deleteCount = 0;
-                    startTime = System.nanoTime();
+                    //startTime = System.nanoTime();
                     while (operation < (2 * n)) {
-                        double rand = random.nextDouble();
-                        if (rand < 0.4) {
+                        double randDouble = Random();
+                        if (randDouble < 0.4) {
                             // Making sure insert operation runs at 0.4
                             // probability
-                            int x = random.nextInt(n);
-                            Node present = theTree.find(x);
-                            if (present != null) {
-                                //System.out.println("Data Already present!!");
+                            int x = rand() % n;
+                            Node *present = theTree->find(x);
+                            if (present != NULL) {
+                                cout << "Data Already present!!\n";
                             } else {
-                                theTree.insert(x);
+                                theTree->insert(x);
                             }
                             operation++;
                             insertCount++;
 
                         }
-                        rand = random.nextDouble();
-                        if (rand < 0.25) { // Making sure delete operation runs at 0.25 //
+                        randDouble = Random();
+                        if (randDouble < 0.25) { // Making sure delete operation runs at 0.25 //
                             // probability
-                            int x = random.nextInt(n);
-                            Node del = theTree.find(x);
-                            if (del != null) {
-                                if (theTree.delete(del, x) != null)
-                                {//System.out.println("Deleted" + x);
-                                }else {
-                                    //System.err.println("Not Deleted!!!");
+                            int x = rand() % n;
+                            Node *del = theTree->find(x);
+                            if (del != NULL) {
+                                if (theTree->deleteNode(del, x) != NULL) {
+                                    cout << "Deleted" << x << endl;
+                                } else {
+                                    cout << "Not Deleted!!!" << endl;
                                 }
                             } else
-                                //System.out.println("Could not find " + x);
-                                operation++;
+                                cout << "Could not find. " << x << endl;
+                            operation++;
                             deleteCount++;
 
                         }
-                        rand = random.nextDouble();
-                        if (rand < 0.35) { // Making sure search operation runs at 0.35 //
+                        randDouble = Random();
+                        if (randDouble < 0.35) { // Making sure search operation runs at 0.35 //
                             // probability
-                            theTree.find(random.nextInt(n));
+                            theTree->find(rand() % n);
                             operation++;
                             searchCount++;
 
                         }
                     }
-                    endTime = System.nanoTime() - startTime;
+                    //endTime = System.nanoTime() - startTime;
 
-                    cout<<"Total No. of search operations performed :"
-                        << searchCount;
-                    cout<<"Total No. of delete operations performed :"
-                        << deleteCount;
-                    cout<<"Total No. of insert operations performed :"
-                        << insertCount;
-                    cout<<"Total Time Taken:" << endTime << " nanoseconds";
+                    cout << "Total No. of search operations performed :"
+                         << searchCount << endl;
+                    cout << "Total No. of delete operations performed :"
+                         << deleteCount << endl;
+                    cout << "Total No. of insert operations performed :"
+                         << insertCount << endl;
+                    //cout<<"Total Time Taken:" << endTime << " nanoseconds";
                     break;
-                case '3':
-                    cout<<"In Order: ";
-                    theTree.displayTree(1);
+                }
+                case 3: {
+                    cout << "In Order: ";
+                    theTree->displayTree(1);
                     break;
-                case '4':
-                    cout<<"Tree:";
-                    theTree.displayTree(0);
+                }
+                case 4: {
+                    cout << "Tree:";
+                    theTree->displayTree(0);
                     break;
-                case '5':
-                    cout<<"Enter value to insert: ";
-                    int value = getInt();
-                    Node present = theTree.find(value);
-                    if (present != null){
-                        cout<<"Data Already present!!";
-                    }else{
-                        theTree.insert(value);
+                }
+                case 5: {
+                    int value;
+                    cout << "Enter value to insert: ";
+                    cin >> value;
+                    Node *present = theTree->find(value);
+                    if (present != NULL) {
+                        cout << "Data Already present!!";
+                    } else {
+                        theTree->insert(value);
                     }
                     break;
-                case '6':
-                    cout<<"Enter value to delete: ";
-                    value = getInt();
-                    Node del = theTree.find(value);
-                    if (del != null)
-                    {
-                        if(theTree.delete(del,value)!=null)
-                        cout<<"Deleted" <<value;
-                        else{
-                            cout<<"Not Deleted!!!";
+                }
+                case 6: {
+                    int value;
+                    cout << "Enter value to delete: ";
+                    cin >> value;
+                    Node *del = theTree->find(value);
+                    if (del != NULL) {
+                        if (theTree->deleteNode(del, value) != NULL)
+                            cout << "Deleted " << value << endl;
+                        else {
+                            cout << "Not Deleted!!!" << endl;
                         }
-                    }
-                    else
-                        cout<<"Could not find " << value;
+                    } else
+                        cout << "Could not find " << value << endl;
                     break;
-                case '7':
-                    cout<<"Enter value to find: ";
-                    value = getInt();
-                    Node found = theTree.find(value);
-                    if (found != null)
-                        cout<<"Found " + value;
+                }
+                case 7: {
+                    int value;
+                    cout << "Enter value to find: ";
+                    cin >> value;
+                    Node *found = theTree->find(value);
+                    if (found != NULL)
+                        cout << "Found " + value;
                     else
-                        cout<<"Could not find " + value;
+                        cout << "Could not find " + value;
                     break;
-                case '8':
-                    cout<<"Thank you!!!";
+                }
+                case 8: {
+                    cout << "Thank you!!!";
                     exit(0);
-
-                default:
-                    cout<<"Invalid entry\n";
+                }
+                default: {
+                    cout << "Invalid entry\n";
+                    break;
+                }
             }
-        } catch (Exception e) {
-            System.err.println("Please enter valid input");
+        } catch (exception e) {
+            cout << "Please enter valid input" << endl;
         }
     }
-
 }
 
-string getString() throws IOException {
-        InputStreamReader isr = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(isr);
-        String s = br.readLine();
-        return s;
-}
-
-char getChar() throws IOException {
-        String s = getString();
-        return s.charAt(0);
-}
-
-int getInt() throws IOException {
-        String s = getString();
-        return Integer.parseInt(s);
-}
-
-}
-}
 #endif //PROYECTO_2_DATOS_MENU_H
