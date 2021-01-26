@@ -13,8 +13,8 @@ using namespace std;
 class Node {
 private:
     int ORDER = 4;
-    int numItems{};
-    Node* parent{};
+    int numItems;
+    Node* parent;
     vector<Node*> childArray;
     vector<NodeData*> itemArray;
 public:

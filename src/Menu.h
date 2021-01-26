@@ -11,7 +11,7 @@ public:
 };
 
 void Menu::menu() {
-    TwoFour theTree = new TwoFour();
+    TwoFour* theTree = new TwoFour();
     int n;
     Random random = new Random();
     while (true) {
