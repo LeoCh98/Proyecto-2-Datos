@@ -10,15 +10,16 @@ using namespace std;
 class NodeData{
 public:
     int dData; // one data item
-
-    NodeData(int dd) // constructor
-    {
-        this->dData = dd;
-    }
-
-    void displayItem() // display item, format "27,"
-    {
-        cout<<dData<<+",";
-    }
+    NodeData(int dd); // constructor
+    void displayItem(); // display item, format "27,"
 };
+
+NodeData::NodeData(int dd) {
+    dData = dd;
+}
+
+void NodeData::displayItem() {
+    cout<<dData<<" ";
+}
+
 #endif //PROYECTO_2_DATOS_NODEDATA_H

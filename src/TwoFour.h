@@ -13,17 +13,15 @@ class TwoFour {
 
 private:
     Node root = new Node(); // make root node
-
-    // insert a NodeData
 public:
-    void insert(i 0nt dValue)
+    void insert( int dValue) // insert a NodeData
 
     // Performs the splits
     // in a top-down (root -----> leaf) fashion.
 
     {
         Node curNode = root;
-        NodeData tempItem = new NodeData(dValue);
+        NodeData tempItem = NodeData(dValue);
 
         while (true) {
             if (curNode.isFull()) // if node full,
