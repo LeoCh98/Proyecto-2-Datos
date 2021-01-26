@@ -5,8 +5,7 @@
 #include "Menu.h"
 
 int main() {
-
-    std::cout<<"Hello world!"<<std::endl;
+    cout<<endl;
     Menu _menu;
     _menu.menu();
 

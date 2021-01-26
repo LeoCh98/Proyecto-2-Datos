@@ -8,14 +8,25 @@
 #include<iostream>
 using namespace std;
 class NodeData{
-public:
+private:
     int dData; // one data item
+public:
+    int getData() const;
+    void setData(int _data);
     NodeData(int dd); // constructor
     void displayItem(); // display item, format "27,"
 };
 
+int NodeData::getData() const {
+    return this->dData;
+}
+
+void NodeData::setData(int _data){
+    dData = _data;
+}
+
 NodeData::NodeData(int dd) {
-    dData = dd;
+    this->dData = dd;
 }
 
 void NodeData::displayItem() {

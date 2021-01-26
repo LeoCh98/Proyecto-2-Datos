@@ -33,10 +33,10 @@ void Menu::menu() {
             cin >> choice;
             switch (atoi(choice.c_str())) {
                 case 1: {
-                    cout << "\nEnter the value of n";
+                    cout << "\nEnter the value of n ";
                     cin >> n;
                     for (int a = 1; a < n + 1; a++) {
-                        Node *present = theTree->find(a);
+                        Node* present = theTree->find(a);
                         if (present != NULL) {
                             cout << "Data Already present!!\n";
                         } else {
@@ -150,13 +150,13 @@ void Menu::menu() {
                     cin >> value;
                     Node *found = theTree->find(value);
                     if (found != NULL)
-                        cout << "Found " + value;
+                        cout << "Found " + value << endl;
                     else
-                        cout << "Could not find " + value;
+                        cout << "Could not find " + value << endl;
                     break;
                 }
                 case 8: {
-                    cout << "Thank you!!!";
+                    cout << "Thank you!!!" << endl;
                     exit(0);
                 }
                 default: {

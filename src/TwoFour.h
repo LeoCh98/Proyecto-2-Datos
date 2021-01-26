@@ -32,7 +32,7 @@ public:
 // in a top-down (root -----> leaf) fashion.
 void TwoFour::insert( int dValue) {
     Node* curNode = root;
-    NodeData* tempItem = new NodeData(dValue);
+    auto* tempItem = new NodeData(dValue);
     while (true) {
         if (curNode->isFull()) // if node full,
         {
@@ -101,7 +101,7 @@ Node* TwoFour::getNextChild(Node* theNode, int theValue) {
     int numItems = theNode->getNumItems();
     for (j = 0; j < numItems; j++) // for each item in node
     { // are we less?
-        if (theValue < theNode->getItem(j)->dData)
+        if (theValue < theNode->getItem(j)->getData())
             return theNode->getChild(j); // return left child
     } // end for // we're greater, so
     return theNode->getChild(j); // return right child
@@ -159,14 +159,14 @@ Node* TwoFour::findvalue(Node* theNode, int theValue) {
     for (int j = 0; j < numItems; j++) // for each item in node
     { // are we less?
         // System.out.println(theNode.getItem(j).dData);
-        if (theValue == theNode->getItem(j)->dData) {
+        if (theValue == theNode->getItem(j)->getData()) {
             l = theNode;
             break;
-        } else if (theValue < theNode->getItem(j)->dData && !theNode->isLeaf()) {
+        } else if (theValue < theNode->getItem(j)->getData() && !theNode->isLeaf()) {
             l = findvalue(theNode->getChild(j), theValue); // return left
             // child
             break;
-        } else if (theValue > theNode->getItem(j)->dData && !theNode->isLeaf()) {
+        } else if (theValue > theNode->getItem(j)->getData() && !theNode->isLeaf()) {
             l = findvalue(theNode->getChild(j + 1), theValue); // return
             // right
             // child
@@ -198,13 +198,13 @@ Node* TwoFour::deleteNode(Node* currnode, int theValue) {
         Node* n = getNextChild(currnode, theValue);
         Node* c = getinordernode(n);
         NodeData* d = c->getItem(0);
-        int k = d->dData;
-        deleteNode(c, d->dData);
+        int k = d->getData();
+        deleteNode(c, d->getData());
 
         Node* found = find(theValue);
         for(int i = 0; i < found->getNumItems();i++){
-            if(found->getItem(i)->dData==theValue){
-                found->getItem(i)->dData=k;
+            if(found->getItem(i)->getData()==theValue){
+                found->getItem(i)->setData(k);
             }
         }
         return found;
@@ -282,16 +282,16 @@ Node* TwoFour::deleteleaf_cases(Node* thisNode, int theValue) {
         }
         for (int i = 0; i <= p->getNumItems(); i++) {
             if (p->getChild(i) == sibling && sibling_side == "l") {
-                thisNode->getItem(0)->dData = p->getItem(i)->dData;
-                p->getItem(i)->dData = sibling->getItem(f)->dData;
-                sibling->deletenodevalue(sibling->getItem(f)->dData);
+                thisNode->getItem(0)->setData( p->getItem(i)->getData());
+                p->getItem(i)->setData( sibling->getItem(f)->getData() );
+                sibling->deletenodevalue( sibling->getItem(f)->getData() );
                 return p;
             }
 
             if (p->getChild(i) == sibling && sibling_side == "r") {
-                thisNode->getItem(0)->dData = p->getItem(i - 1)->dData;
-                p->getItem(i - 1)->dData = sibling->getItem(f)->dData;
-                sibling->deletenodevalue(sibling->getItem(f)->dData);
+                thisNode->getItem(0)->setData( p->getItem(i - 1)->getData());
+                p->getItem(i - 1)->setData( sibling->getItem(f)->getData());
+                sibling->deletenodevalue(sibling->getItem(f)->getData());
                 return p;
             }
         }

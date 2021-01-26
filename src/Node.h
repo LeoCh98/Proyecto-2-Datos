@@ -13,9 +13,9 @@ class Node {
 private:
     static const int ORDER = 4;
     int numItems;
-    Node* parent;
-    Node* childArray[ORDER];
-    NodeData* itemArray[ORDER-1];
+    Node *parent;
+    Node *childArray[ORDER];
+    NodeData *itemArray[ORDER - 1];
 public:
     Node();
     void connectChild(int childNum, Node* child); // connect child to this node
@@ -38,9 +38,7 @@ public:
     Node* getsibiling(int theValue);
 };
 
-Node::Node(){
-
-}
+Node::Node() = default;
 
 void Node::connectChild(int childNum, Node* child) {
     childArray[childNum] = child;
@@ -63,7 +61,8 @@ Node* Node::getParent() {
 }
 
 bool Node::isLeaf() {
-    return (childArray[0] == NULL) ? true : false;
+    if (childArray[0] == NULL)
+        return true;
 }
 
 int Node::getNumItems() {
@@ -87,13 +86,14 @@ NodeData* Node::setItem(int index, NodeData* theValue)
 }
 
 bool Node::isFull() {
-    return (numItems == ORDER - 1) ? true : false;
+    if (numItems == ORDER - 1)
+        return true;
 }
 
 int Node::insertItem(NodeData* newItem) {
     // assumes node is not full
     numItems++; // will add new item
-    int newKey = newItem->dData; // key of new item
+    int newKey = newItem->getData(); // key of new item
 
     // Should start this for loop at numItems-1, rather than ORDER -2
 
@@ -103,7 +103,7 @@ int Node::insertItem(NodeData* newItem) {
             continue; // go left one cell
         else // not null,
         { // get its key
-            int itsKey = itemArray[j]->dData;
+            int itsKey = itemArray[j]->getData();
             if (newKey < itsKey) // if it's bigger
                 itemArray[j + 1] = itemArray[j]; // shift it right
             else {
@@ -118,7 +118,7 @@ int Node::insertItem(NodeData* newItem) {
 
 void Node::insertatfront(NodeData* newItem) {
 
-    int newKey = newItem->dData; // key of new item
+    int newKey = newItem->getData(); // key of new item
     numItems++;
     for (int j = numItems - 1; j > 0; j--) {
         itemArray[j] = itemArray[j - 1];
@@ -133,10 +133,12 @@ void Node::insertatfront(NodeData* newItem) {
 
 NodeData* Node::removeItem() {
     // assumes node not empty
-    NodeData* temp = itemArray[numItems - 1]; // save item
-    itemArray[numItems - 1] = NULL; // disconnect it
-    numItems--; // one less item
-    return temp; // return item
+    if(!isFull()) {
+        NodeData *temp = itemArray[numItems - 1]; // save item
+        itemArray[numItems - 1] = NULL; // disconnect it
+        numItems--; // one less item
+        return temp; // return item
+    }
 }
 
 void Node::displayNode() // format "/24/56/74/"
@@ -157,11 +159,11 @@ void Node::deletenodevalue(int theValue) {
     int flag = -1;
     // just delete the value and decrease node size
     for (int i = 0; i < numItems; i++) {
-        if (theValue == itemArray[i]->dData) {
+        if (theValue == itemArray[i]->getData()) {
             flag = i;
         }
         if (flag != -1 && i + 1 < numItems) {
-            itemArray[i]->dData = itemArray[i + 1]->dData;
+            itemArray[i]->setData( itemArray[i + 1]->getData());
         }
     }
     itemArray[numItems - 1] = NULL; // disconnect it
@@ -174,11 +176,11 @@ void Node::deletevalue(int theValue, string side) {
     int flag = -1;
     // just delete the value and decrease node size
     for (int i = 0; i < numItems; i++) {
-        if (theValue == itemArray[i]->dData) {
+        if (theValue == itemArray[i]->getData()) {
             flag = i;
         }
         if (flag != -1 && i + 1 < numItems) {
-            itemArray[i]->dData = itemArray[i + 1]->dData;
+            itemArray[i]->setData( itemArray[i + 1]->getData());
         }
     }
     itemArray[numItems - 1] = NULL; // disconnect it
@@ -192,7 +194,7 @@ Node* Node::getsibiling(int theValue) {
     Node* p = getParent();
     if (numItems != 0) {
         for (int i = 0; i <= p->numItems; i++) {
-            if (p->childArray[i]->itemArray[0]->dData < theValue) {
+            if (p->childArray[i]->itemArray[0]->getData() < theValue) {
                 x = p->childArray[i];
             }
         }
